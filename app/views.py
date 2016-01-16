@@ -26,4 +26,7 @@ class SetupView(View):
     template_name = 'app/setup.html'
 
     def get(self, request, *args, **kwargs):
+        if is_setup():
+            return redirect(reverse('app:index'))
+
         return render(request, self.template_name)
