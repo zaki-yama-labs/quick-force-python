@@ -1,10 +1,23 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="content-type" content="text/html; charset=utf-8">
-<title>Index</title>
-</head>
-<body>
+{% extends "app/base.html" %}
+{% block content %}
+<h1>Salesforce Accounts</h1>
 
-</body>
-</html>
+<table class="table">
+  <tr>
+    <th>Id</th>
+    <th>Name</th>
+    <th>Type</th>
+    <th>Industry</th>
+    <th>Rating</th>
+  </tr>
+  {% for record in records %}
+    <tr>
+      <td>{{ record.id }}</td>
+      <td>{{ record.name }}</td>
+      <td>{{ record.type }}</td>
+      <td>{{ record.industry }}</td>
+      <td>{{ record.rating }}</td>
+    </tr>
+  {% endfor %}
+</table>
+{% endblock %}
