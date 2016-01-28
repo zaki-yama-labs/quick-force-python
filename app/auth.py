@@ -1,16 +1,13 @@
 # -*- coding: utf-8 -*-
-# This file is a copy of salesforce-oauth2
+# This file is inspired by salesforce-oauth2
 # https://github.com/neworganizing/salesforce-oauth2
-'''
-Inspired by requests_oauth2
-'''
-
-import requests
-from urllib import quote
-
 import hmac
 import hashlib
 import base64
+import requests
+
+from urllib.parse import quote
+
 
 class SalesforceOAuth2(object):
     authorization_url = '/services/oauth2/authorize'
@@ -30,7 +27,6 @@ class SalesforceOAuth2(object):
         self.redirect_uri = redirect_uri
 
     def _request_token(self, data):
-        import requests
         url = "{site}{token_url}".format(
             site=self.auth_site, token_url=self.token_url)
         headers = {
@@ -43,7 +39,6 @@ class SalesforceOAuth2(object):
         return result, result.json()
 
     def authorize_url(self, **kwargs):
-        from urllib import quote
         scope = kwargs.get('scope', quote('full refresh_token'))
         fields = {
             'site': self.auth_site,
@@ -55,7 +50,6 @@ class SalesforceOAuth2(object):
         return "{site}{authorize_url}?response_type=code&client_id={clientid}&redirect_uri={redirect_uri}&scope={scope}".format(**fields)
 
     def get_token(self, code):
-        from urllib import quote
         data = {
             'grant_type': 'authorization_code',
             'redirect_uri': self.redirect_uri,
@@ -86,8 +80,6 @@ class SalesforceOAuth2(object):
         return base64.b64encode(digest).decode()
 
     def revoke_token(self, current_token):
-        import requests
-        from urllib import quote
         # Perform a GET request, because that's by far the easiest way
         url = "{site}{revoke_url}".format(
             site=self.auth_site, revoke_url=self.revoke_url)
