@@ -1,0 +1,7 @@
+{
+  "name": "Quick Force (Python)",
+  "description": "A Python version of Quick Force Node: A Python web app that uses Force.com REST APIs",
+  "repository": "https://github.com/zaki-yama/quick-force-python",
+  "website": "http://dackdive.hateblo.jp",
+  "keywords": ["python", "django", "salesforce", "simple-salesforce"]
+}
