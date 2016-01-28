@@ -8,6 +8,8 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import get_object_or_404, render, redirect
 from django.views.generic import View
 
+from simple_salesforce import Salesforce
+
 from .auth import SalesforceOAuth2
 
 logger = getLogger(__name__)
@@ -40,12 +42,17 @@ class IndexView(View):
             res = connection.get_token(request.GET['code'])
             for k, v in res.items():
                 logger.debug('%s: %r' % (k, v))
+
+            sf = Salesforce(
+                    instance_url=res['instance_url'],
+                    session_id=res['access_token'])
+            res = sf.query('SELECT id, name, type, industry, rating FROM Account')
+            records = res['records']
+            return render(request, self.template_name, {'records': records})
         else:
             auth_url = connection.authorize_url(scope='full')
             logger.debug('redirect to: {}'.format(auth_url))
             return redirect(auth_url)
-
-        return render(request, self.template_name)
 
 
 class SetupView(View):
