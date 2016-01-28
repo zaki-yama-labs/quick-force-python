@@ -2,7 +2,7 @@ Quick Force Python
 ==================
 
 A Python version of [quick-force-node](https://github.com/jamesward/quick-force-node).
-The quickest and easiest way to start a Node web app that uses the Force.com REST APIs.
+The quickest and easiest way to start a Python web app that uses the Force.com REST APIs.
 
 
 ### Usage
