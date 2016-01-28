@@ -5,8 +5,12 @@ import hmac
 import hashlib
 import base64
 import requests
+import sys
 
-from urllib.parse import quote
+if sys.version_info[:2] < (3, 0):
+    from urllib import quote
+else:
+    from urllib.parse import quote
 
 
 class SalesforceOAuth2(object):
