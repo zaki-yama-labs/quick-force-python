@@ -62,4 +62,15 @@ class SetupView(View):
         if is_setup():
             return redirect(reverse('app:index'))
 
-        return render(request, self.template_name)
+        hostname = request.META['HTTP_HOST']
+        is_local = hostname.find('localhost') == 0
+        heroku_app_name = None
+        if hostname.find('.herokuapp.com') > 0:
+            heroku_app_name = hostname.replace('.herokuapp.com', '')
+        context = {
+                'oauth_callback_url': REDIRECT_URI,
+                'is_local': is_local,
+                'heroku_app_name': heroku_app_name,
+                }
+
+        return render(request, self.template_name, context)
